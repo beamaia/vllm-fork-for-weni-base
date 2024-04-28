@@ -22,8 +22,9 @@ VLLM_TARGET_DEVICE = os.getenv("VLLM_TARGET_DEVICE", "cuda")
 assert sys.platform.startswith(
     "linux"), "vLLM only supports Linux platform (including WSL)."
 
-MAIN_CUDA_VERSION = "12.1"
-
+MAIN_CUDA_VERSION = os.getenv("WORKER_CUDA_VERSION")
+if MAIN_CUDA_VERSION in ["12.1.0", "11.8.0"]:
+    MAIN_CUDA_VERSION = MAIN_CUDA_VERSION[:-2]
 
 def is_sccache_available() -> bool:
     return which("sccache") is not None
@@ -338,6 +339,7 @@ def get_requirements() -> List[str]:
                 resolved_requirements += _read_requirements(line.split()[1])
             else:
                 resolved_requirements.append(line)
+            resolved_requirements = [req for req in resolved_requirements if not req.startswith("--")]
         return resolved_requirements
 
     if _is_cuda():
