@@ -44,7 +44,7 @@ class TensorizerConfig:
                           str, bytes, os.PathLike, int]
     vllm_tensorized: bool
     verify_hash: Optional[bool] = False
-    num_readers: Optional[int] = 1
+    num_readers: Optional[int] = None
     encryption_keyfile: Optional[str] = None
     s3_access_key_id: Optional[str] = None
     s3_secret_access_key: Optional[str] = None
@@ -104,7 +104,7 @@ class TensorizerArgs:
                           str, bytes, os.PathLike, int]
     vllm_tensorized: bool
     verify_hash: Optional[bool] = False
-    num_readers: Optional[int] = 1
+    num_readers: Optional[int] = None
     encryption_keyfile: Optional[str] = None
     s3_access_key_id: Optional[str] = None
     s3_secret_access_key: Optional[str] = None
@@ -125,7 +125,7 @@ class TensorizerArgs:
           the hashes stored in the metadata. A `HashMismatchError` will be 
           raised if any of the hashes do not match.
       num_readers: Controls how many threads are allowed to read concurrently
-          from the source file. Default is 1. This greatly increases
+          from the source file. Default is None which is Dynamic. This greatly increases
           performance.
       encryption_keyfile: File path to a binary file containing a  
           binary key to use for decryption. `None` (the default) means 
