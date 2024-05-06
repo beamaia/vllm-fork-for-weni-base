@@ -1,4 +1,5 @@
 import pickle
+import os
 from typing import List, Optional, Tuple
 from torch.cuda import device_count
 from vllm.config import ParallelConfig
