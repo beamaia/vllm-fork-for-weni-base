@@ -47,7 +47,7 @@ enable_hf_transfer()
 class DisabledTqdm(tqdm):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs, disable=True)
+        super().__init__(*args, **kwargs, disable=False)
 
 
 def get_lock(model_name_or_path: str, cache_dir: Optional[str] = None):
