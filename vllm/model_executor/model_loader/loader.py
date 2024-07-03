@@ -92,9 +92,11 @@ def _initialize_model(model_config: ModelConfig, load_config: LoadConfig,
                       vision_language_config: Optional[VisionLanguageConfig],
                       cache_config: CacheConfig) -> nn.Module:
     """Initialize a model with the given configurations."""
+    from torch import float16
     model_class = get_model_architecture(model_config)[0]
+    model_config.dtype = float16
     quant_config = _get_quantization_config(model_config, load_config)
-
+    
     return model_class(config=model_config.hf_config,
                        cache_config=cache_config,
                        quant_config=quant_config,
